@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<!--
+  Wires the payment method facade: configuration reader, validators, the
+  order/refund command pool, and the checkout config provider.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!-- Reads payment/waypoint_wipay/* for the facade. -->
+    <virtualType name="WaypointWiPayConfig" type="Magento\Payment\Gateway\Config\Config">
+        <arguments>
+            <argument name="methodCode" xsi:type="string">waypoint_wipay</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="WaypointWiPayValueHandler" type="Magento\Payment\Gateway\Config\ConfigValueHandler">
+        <arguments>
+            <argument name="configInterface" xsi:type="object">WaypointWiPayConfig</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="WaypointWiPayValueHandlerPool" type="Magento\Payment\Gateway\Config\ValueHandlerPool">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="default" xsi:type="string">WaypointWiPayValueHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!--
+      The same configuration validator answers both the availability question
+      (is checkout safe to offer?) and the global question (is configuration
+      sound before acting on a response?).
+    -->
+    <virtualType name="WaypointWiPayValidatorPool" type="Magento\Payment\Gateway\Validator\ValidatorPool">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="availability" xsi:type="string">Waypoint\WiPay\Gateway\Validator\Configuration</item>
+                <item name="global" xsi:type="string">Waypoint\WiPay\Gateway\Validator\Configuration</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- "order" is selected by <payment_action>order</payment_action>. -->
+    <virtualType name="WaypointWiPayCommandPool" type="Magento\Payment\Gateway\Command\CommandPool">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="order" xsi:type="string">Waypoint\WiPay\Gateway\Command\PlaceOrderCommand</item>
+                <item name="refund" xsi:type="string">Waypoint\WiPay\Gateway\Command\RefundCommand</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Waypoint\WiPay\Gateway\Method\WaypointWiPay"
+                 type="Magento\Payment\Model\Method\Adapter">
+        <arguments>
+            <argument name="code" xsi:type="string">waypoint_wipay</argument>
+            <argument name="formBlockType" xsi:type="string">Magento\Payment\Block\Form</argument>
+            <argument name="infoBlockType" xsi:type="string">Magento\Payment\Block\Info</argument>
+            <argument name="valueHandlerPool" xsi:type="object">WaypointWiPayValueHandlerPool</argument>
+            <argument name="validatorPool" xsi:type="object">WaypointWiPayValidatorPool</argument>
+            <argument name="commandPool" xsi:type="object">WaypointWiPayCommandPool</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Magento\Checkout\Model\CompositeConfigProvider">
+        <arguments>
+            <argument name="configProviders" xsi:type="array">
+                <item name="waypoint_wipay" xsi:type="object">Waypoint\WiPay\Model\Ui\ConfigProvider</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

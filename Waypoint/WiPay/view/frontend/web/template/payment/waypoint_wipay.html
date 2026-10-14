@@ -1,0 +1,19 @@
+<!--
+  Waypoint WiPay method content. Rendered inside the payment method frame that
+  the checkout payment list provides, so this template only supplies the note
+  and the action.
+-->
+<div class="waypoint-wipay-payment">
+    <!-- ko if: description -->
+    <div class="payment-method-note" data-bind="text: description"></div>
+    <!-- /ko -->
+
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button class="action primary checkout"
+                    type="button"
+                    data-bind="click: placeOrder, enable: isPlaceOrderActionAllowed, i18n: 'Continue to WiPay'">
+            </button>
+        </div>
+    </div>
+</div>

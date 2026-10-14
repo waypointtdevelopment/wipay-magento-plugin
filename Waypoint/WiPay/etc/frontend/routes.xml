@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="standard">
+        <!--
+          Front name "waypoint" gives /waypoint/payment/start and
+          /waypoint/payment/response as publicly reachable HTTPS endpoints.
+        -->
+        <route id="waypoint" frontName="waypoint">
+            <module name="Waypoint_WiPay"/>
+        </route>
+    </router>
+</config>

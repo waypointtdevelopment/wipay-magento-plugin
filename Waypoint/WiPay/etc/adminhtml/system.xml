@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="payment">
+            <group id="waypoint_wipay" translate="label comment" type="text" sortOrder="100"
+                   showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Waypoint WiPay</label>
+                <comment>Independent hosted card checkout for WiPay. Not affiliated with, sponsored by, or endorsed by WiPay.</comment>
+
+                <field id="active" translate="label" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="title" translate="label" type="text" sortOrder="20"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                </field>
+
+                <field id="description" translate="label" type="text" sortOrder="30"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Checkout description</label>
+                </field>
+
+                <field id="environment" translate="label" type="select" sortOrder="40"
+                       showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Environment</label>
+                    <source_model>Waypoint\WiPay\Model\Source\Environment</source_model>
+                    <comment>Keep Sandbox until live processing has been verified end to end.</comment>
+                </field>
+
+                <field id="country_code" translate="label" type="select" sortOrder="50"
+                       showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>WiPay platform</label>
+                    <source_model>Waypoint\WiPay\Model\Source\Platform</source_model>
+                    <comment>The platform that processes your merchant account. This is not the shopper billing country.</comment>
+                </field>
+
+                <field id="fee_structure" translate="label" type="select" sortOrder="60"
+                       showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Fee structure</label>
+                    <source_model>Waypoint\WiPay\Model\Source\FeeStructure</source_model>
+                </field>
+
+                <field id="live_account_number" translate="label comment" type="text" sortOrder="70"
+                       showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Live WiPay account number</label>
+                    <comment>Used only in Live mode. Sandbox uses WiPay's published test account.</comment>
+                </field>
+
+                <field id="live_api_key" translate="label comment" type="obscure" sortOrder="80"
+                       showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Live response-verification key</label>
+                    <comment>Used to verify the return hash in Live mode. Stored encrypted; never sent to the browser.</comment>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                </field>
+
+                <field id="sandbox_wapi_key" translate="label comment" type="obscure" sortOrder="90"
+                       showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Sandbox WAPI key</label>
+                    <comment>For refunds and reconciliation. Sandbox keys are prefixed wapi_test_. Stored encrypted.</comment>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                </field>
+
+                <field id="live_wapi_key" translate="label comment" type="obscure" sortOrder="100"
+                       showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Live WAPI key</label>
+                    <comment>For refunds and reconciliation in Live mode. Stored encrypted.</comment>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

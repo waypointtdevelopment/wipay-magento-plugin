@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+  Default payment method configuration. Editable values are exposed in
+  etc/adminhtml/system.xml; secrets are stored encrypted.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <payment>
+            <waypoint_wipay>
+                <active>0</active>
+                <model>Waypoint\WiPay\Gateway\Method\WaypointWiPay</model>
+                <title>Credit card (WiPay)</title>
+                <description>You will complete payment on WiPay's secure hosted checkout.</description>
+                <!-- Order stays pending until the return is verified server-side. -->
+                <order_status>pending_payment</order_status>
+                <payment_action>order</payment_action>
+                <allowspecific>0</allowspecific>
+                <sort_order>100</sort_order>
+                <is_gateway>1</is_gateway>
+                <can_use_checkout>1</can_use_checkout>
+                <can_use_internal>0</can_use_internal>
+                <can_review>0</can_review>
+                <can_cancel>1</can_cancel>
+                <can_refund>1</can_refund>
+                <can_void>0</can_void>
+                <can_edit>0</can_edit>
+
+                <!-- Keep sandbox until live processing has been verified. -->
+                <environment>sandbox</environment>
+                <country_code>TT</country_code>
+                <fee_structure>merchant_absorb</fee_structure>
+                <live_account_number/>
+            </waypoint_wipay>
+        </payment>
+    </default>
+</config>
