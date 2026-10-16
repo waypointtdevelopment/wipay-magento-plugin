@@ -21,9 +21,9 @@ Magento / Adobe Commerce supports payment-provider gateway modules. Before imple
 - **Order lifecycle:** `pending_payment` before the shopper leaves; `processing` with a registered invoice only after verification; `canceled` only for an explicit failure status, so an abandoned return never cancels an order.
 - **Refunds:** full order only, via WAPI, because WiPay documents no amount parameter.
 
-## Open questions
-- Re-confirm the JM/BB/GY/GD hostnames against the current Platforms and Environments page; only the TT pair is published there.
-- Confirm the TTD 5.00 minimum, carried over from the sandbox-tested WordPress gateway rather than re-read from current docs.
+## Questions
+- ~~Re-confirm the JM/BB/GY/GD hostnames~~ **Closed 15 October 2026:** all five live/sandbox pairs (BB, GD, GY, JM, TT) match WiPay's Platforms and Environments page, and all ten hostnames returned HTTP 200 when probed over HTTPS.
+- ~~Confirm the TTD 5.00 minimum~~ **Closed 15 October 2026:** WiPay's Get Transaction Metadata endpoint returns `totals.TTD` as `{"minimum": 5, "maximum": 20400}` (USD is `{"minimum": 0.74, "maximum": 3000}`), so the floor in `PlaceOrderCommand` is documented rather than merely inherited.
 - Webhooks and transaction reconciliation are not implemented here; decide whether to port them from the WordPress gateway.
 - Validate the order-state transitions against a real instance, including HPOS.
 

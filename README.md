@@ -52,7 +52,7 @@ Sandbox verification uses WiPay's published key `123`.
 - **No webhooks.** Chargeback, refund and fraud events are not consumed here; reconcile in the WiPay dashboard. (The WordPress gateway does implement them.)
 - **No reconciliation tool.** Transaction state must be checked in the WiPay dashboard.
 - **Full-order refunds only.** WiPay documents no amount parameter, so a partial credit memo is refused with an error rather than processed as a full refund. A refund response confirms only that a *request* was created.
-- The JM/BB/GY/GD hostnames follow WiPay's documented host layout but only the TT pair is published on the Platforms and Environments page — **re-confirm before release.**
+- The JM/BB/GY/GD hostnames were re-confirmed against WiPay's Platforms and Environments page on 15 October 2026; all ten live/sandbox hostnames were probed and returned HTTP 200 over HTTPS.
 - HPOS: the module writes through `OrderRepositoryInterface`, but the order-state transitions in `Controller/Payment/Response.php` have only been reviewed statically.
 
 ## Development

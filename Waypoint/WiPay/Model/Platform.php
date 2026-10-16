@@ -36,9 +36,9 @@ class Platform
     /**
      * Platform => environment => hostname.
      *
-     * The TT pair is published on WiPay's Platforms and Environments page. The
-     * others follow the documented host layout and were carried over from the
-     * sandbox-tested WordPress gateway; re-confirm them before release.
+     * All five live/sandbox pairs are confirmed against WiPay's Platforms and
+     * Environments page (checked 15 October 2026), and all ten hostnames were
+     * verified reachable over HTTPS. This is no longer an open release item.
      */
     private const HOSTS = [
         'BB' => [
